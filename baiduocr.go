@@ -132,7 +132,11 @@ func (ocr OCR) ParseJPEG(imageBytes []byte, options ...BaiduOCROption) (results 
 	}
 
 	var ret baiduOCRRet
-	json.Unmarshal(body, &ret)
+	err = json.Unmarshal(body, &ret)
+	if err != nil {
+		return
+	}
+
 	if len(ret.RetData) == 0 {
 		err = errors.New("BaiduOCR failed to recognize any text in the image.")
 		return
