@@ -1,7 +1,7 @@
 BaiduOCR
 ========
 
-Read Chinese and English text from JPEG/PNG image with Baidu OCR services.
+Read Chinese, Japanese and English text from JPEG/PNG image with Baidu OCR services.
 
 [![CircleCI](https://circleci.com/gh/caiguanhao/baiduocr.svg?style=svg)](https://circleci.com/gh/caiguanhao/baiduocr)
 

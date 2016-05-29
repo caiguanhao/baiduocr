@@ -1,4 +1,4 @@
-// Read Chinese and English text from JPEG/PNG image with Baidu OCR services.
+// Read Chinese, Japanese and English text from JPEG/PNG image with Baidu OCR services.
 // PNG image will be converted to JPEG on the fly because Baidu OCR recognizes only JPEG image files.
 package baiduocr
 
@@ -55,14 +55,19 @@ type (
 	}
 )
 
-// Option to set OCR language type to "CHN_ENG". This is a default option.
+// Option to set OCR language type to "CHN_ENG" (Chinese and English). This is the default option for language type.
 func SetLangTypeCHNENG() BaiduOCROption {
 	return BaiduOCROption{func(option *baiduOCROption) { option.languageType = "CHN_ENG" }}
 }
 
-// Option to set OCR language type to "ENG". Use this option if the image contains no Chinese characters.
+// Option to set OCR language type to "ENG" (English).
 func SetLangTypeENG() BaiduOCROption {
 	return BaiduOCROption{func(option *baiduOCROption) { option.languageType = "ENG" }}
+}
+
+// Option to set OCR language type to "JAP" (Japanese).
+func SetLangTypeJAP() BaiduOCROption {
+	return BaiduOCROption{func(option *baiduOCROption) { option.languageType = "JAP" }}
 }
 
 // If the image is a PNG with transparent background, use this option to set the background color.

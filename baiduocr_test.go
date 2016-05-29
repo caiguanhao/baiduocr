@@ -49,6 +49,19 @@ func Example_parseVerticalChineseTextWithTransparentBackground() {
 	// 中文語法
 }
 
+func Example_parseJapaneseText() {
+	ocr := baiduocr.OCR{APIKey: APIKey}
+	// https://commons.wikimedia.org/wiki/File:Kanji_for_Japanese_-_sample.svg
+	results, err := ocr.ParsePNGFile("test/fixtures/japanese/kanji.png", baiduocr.SetLangTypeJAP(), baiduocr.SetPNGBackgroundColorRGBA(255, 255, 255, 255))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(strings.Join(results, ", "))
+	// Output:
+	// 日本における漢字
+}
+
 func Example_parseHTTPResponse() {
 	resp, err := http.Get("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Twemoji_1f21a.svg/200px-Twemoji_1f21a.svg.png")
 	if err != nil {
