@@ -56,26 +56,26 @@ type (
 )
 
 const (
-	DEFAULT_LANG = "CHN_ENG"
+	_DEFAULT_LANG = "CHN_ENG"
 
-	CHINESE  = "CHN_ENG"
-	ENGLISH  = "ENG"
-	JAPANESE = "JAP"
+	_CHINESE  = "CHN_ENG"
+	_ENGLISH  = "ENG"
+	_JAPANESE = "JAP"
 )
 
 // Option to set OCR language type to Chinese (and English). This is the default option for language type.
 func SetLanaguageTypeToChinese() BaiduOCROption {
-	return BaiduOCROption{func(option *baiduOCROption) { option.languageType = CHINESE }}
+	return BaiduOCROption{func(option *baiduOCROption) { option.languageType = _CHINESE }}
 }
 
 // Option to set OCR language type to English.
 func SetLanguageTypeToEnglish() BaiduOCROption {
-	return BaiduOCROption{func(option *baiduOCROption) { option.languageType = ENGLISH }}
+	return BaiduOCROption{func(option *baiduOCROption) { option.languageType = _ENGLISH }}
 }
 
 // Option to set OCR language type to Japanese.
 func SetLanguageTypeToJapanese() BaiduOCROption {
-	return BaiduOCROption{func(option *baiduOCROption) { option.languageType = JAPANESE }}
+	return BaiduOCROption{func(option *baiduOCROption) { option.languageType = _JAPANESE }}
 }
 
 // If the image is a PNG with transparent background, use this option to set the background color.
@@ -102,7 +102,7 @@ func (ocr OCR) ParseImage(imageBytes []byte, options ...BaiduOCROption) (results
 
 func (ocr OCR) ParseJPEG(imageBytes []byte, options ...BaiduOCROption) (results []string, err error) {
 	opts := baiduOCROption{
-		languageType: DEFAULT_LANG,
+		languageType: _DEFAULT_LANG,
 	}
 	for _, option := range options {
 		option.f(&opts)
