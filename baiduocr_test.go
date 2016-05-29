@@ -14,7 +14,7 @@ var APIKey string = os.Getenv("BAIDUOCR_APIKEY")
 
 func Example_solveSimpleCaptcha() {
 	ocr := baiduocr.OCR{APIKey: APIKey, TimeoutInMilliseconds: 8000}
-	results, err := ocr.ParsePNGFile("test/fixtures/simple-captcha/3560.png", baiduocr.SetLangTypeENG())
+	results, err := ocr.ParsePNGFile("test/fixtures/simple-captcha/3560.png", baiduocr.SetLanguageTypeToEnglish())
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -52,7 +52,11 @@ func Example_parseVerticalChineseTextWithTransparentBackground() {
 func Example_parseJapaneseText() {
 	ocr := baiduocr.OCR{APIKey: APIKey}
 	// https://commons.wikimedia.org/wiki/File:Kanji_for_Japanese_-_sample.svg
-	results, err := ocr.ParsePNGFile("test/fixtures/japanese/kanji.png", baiduocr.SetLangTypeJAP(), baiduocr.SetPNGBackgroundColorRGBA(255, 255, 255, 255))
+	results, err := ocr.ParsePNGFile(
+		"test/fixtures/japanese/kanji.png",
+		baiduocr.SetLanguageTypeToJapanese(),
+		baiduocr.SetPNGBackgroundColorRGBA(255, 255, 255, 255),
+	)
 	if err != nil {
 		fmt.Println(err)
 		return
