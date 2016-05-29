@@ -18,6 +18,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 type (
@@ -116,7 +117,9 @@ func (ocr OCR) ParseJPEG(imageBytes []byte, options ...BaiduOCROption) (results 
 	req.Header.Set("content-type", "application/x-www-form-urlencoded")
 	req.Header.Set("apikey", ocr.APIKey)
 
-	client := &http.Client{}
+	client := &http.Client{
+		Timeout: time.Duration(5 * time.Second),
+	}
 	var resp *http.Response
 	resp, err = client.Do(req)
 	if err != nil {
