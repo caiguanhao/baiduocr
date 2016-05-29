@@ -7,6 +7,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"image"
 	"image/color"
 	"image/draw"
@@ -38,10 +39,8 @@ type (
 	}
 
 	baiduOCRRet struct {
-		ErrMsg    string `json:"errMsg"`
-		ErrNum    string `json:"errNum"`
-		QuerySign string `json:"querySign"`
-		RetData   []struct {
+		ErrMsg  string `json:"errMsg"`
+		RetData []struct {
 			Rect struct {
 				Height string `json:"height"`
 				Left   string `json:"left"`
@@ -138,7 +137,11 @@ func (ocr OCR) ParseJPEG(imageBytes []byte, options ...BaiduOCROption) (results 
 	}
 
 	if len(ret.RetData) == 0 {
-		err = errors.New("BaiduOCR failed to recognize any text in the image.")
+		msg := "BaiduOCR failed to recognize any text in the image."
+		if ret.ErrMsg != "" {
+			msg += fmt.Sprintf(" reason: %s", ret.ErrMsg)
+		}
+		err = errors.New(msg)
 		return
 	}
 	for _, data := range ret.RetData {
