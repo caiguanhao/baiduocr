@@ -13,7 +13,7 @@ import (
 var APIKey string = os.Getenv("BAIDUOCR_APIKEY")
 
 func Example_solveSimpleCaptcha() {
-	ocr := baiduocr.OCR{APIKey: APIKey}
+	ocr := baiduocr.OCR{APIKey: APIKey, TimeoutInMilliseconds: 8000}
 	results, err := ocr.ParsePNGFile("test/fixtures/simple-captcha/3560.png", baiduocr.SetLangTypeENG())
 	if err != nil {
 		fmt.Println(err)

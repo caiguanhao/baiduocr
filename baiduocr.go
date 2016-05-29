@@ -27,6 +27,8 @@ type (
 		APIKey string
 		// Set API entrypoint path, default is http://apis.baidu.com/apistore/idlocr/ocr
 		APIPath string
+		// Set request timeout in milliseconds (ms), default is 5000, set to -1 means no timeout
+		TimeoutInMilliseconds int64
 	}
 
 	BaiduOCROption struct {
@@ -117,8 +119,18 @@ func (ocr OCR) ParseJPEG(imageBytes []byte, options ...BaiduOCROption) (results 
 	req.Header.Set("content-type", "application/x-www-form-urlencoded")
 	req.Header.Set("apikey", ocr.APIKey)
 
+	var timeout time.Duration
+	ms := ocr.TimeoutInMilliseconds
+	if ms < -1 {
+		panic("TimeoutInMilliseconds must not be less than -1")
+	} else if ms > -1 {
+		if ms == 0 {
+			ms = 5000
+		}
+		timeout = time.Duration(ms) * time.Millisecond
+	}
 	client := &http.Client{
-		Timeout: time.Duration(5 * time.Second),
+		Timeout: timeout,
 	}
 	var resp *http.Response
 	resp, err = client.Do(req)
