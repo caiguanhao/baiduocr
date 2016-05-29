@@ -64,7 +64,7 @@ const (
 )
 
 // Option to set OCR language type to Chinese (and English). This is the default option for language type.
-func SetLanaguageTypeToChinese() BaiduOCROption {
+func SetLanguageTypeToChinese() BaiduOCROption {
 	return BaiduOCROption{func(option *baiduOCROption) { option.languageType = _CHINESE }}
 }
 
